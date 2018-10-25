@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entity;
+using Library.Services.Abstractions.DbService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,10 @@ namespace Library.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+        }
+
         public ActionResult Index()
         {
             return View();

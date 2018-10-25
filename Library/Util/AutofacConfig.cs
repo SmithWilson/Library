@@ -1,5 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Entity;
+using Library.Services.Abstractions.DbService;
+using Library.Services.Implementations.DbService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +23,9 @@ namespace Library.Util
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             //Регистрация зависимостей
-
+            builder.RegisterType<LibraryContext>().InstancePerRequest();
+            builder.RegisterType<BookService>()
+                .As<IBookService>();
 
             //Внедрение зависимостей в контейнер
             var container = builder.Build();
