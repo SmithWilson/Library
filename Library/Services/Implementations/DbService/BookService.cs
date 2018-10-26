@@ -59,6 +59,9 @@ namespace Library.Services.Implementations.DbService
             return dto;
         }
 
+        public List<Book> GetAll()
+            => _context.Books.ToList();
+
         public Book GetById(int id)
             => _context.Books.FirstOrDefault(b => b.Id == id);
 

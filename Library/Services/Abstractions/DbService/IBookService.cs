@@ -17,6 +17,8 @@ namespace Library.Services.Abstractions.DbService
 
         BooksDTO Get(int offset, int count = 10);
 
+        List<Book> GetAll();
+
         Book Add(Book book);
 
         bool Remove(int id);
