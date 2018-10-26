@@ -1,4 +1,5 @@
-﻿using Library.Util;
+﻿using AutoMapper;
+using Library.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Library
         protected void Application_Start()
         {
             AutofacConfig.ConfigureContainer();
+            Mapper.Initialize(cfg => cfg.ConfigureMapper());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

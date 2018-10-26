@@ -1,4 +1,5 @@
 ﻿using Entity.Models;
+using Library.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Library.Services.Abstractions.DbService
     {
         Book GetById(int id);
 
-        List<Book> Get(int count, int offset);
+        BooksDTO Get(int offset, int count = 10);
 
         Book Add(Book book);
 

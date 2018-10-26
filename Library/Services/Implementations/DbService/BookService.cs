@@ -1,5 +1,6 @@
 ﻿using Entity;
 using Entity.Models;
+using Library.DTO;
 using Library.Services.Abstractions.DbService;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Library.Services.Implementations.DbService
             return book;
         }
 
-        public List<Book> Get(int offset, int count = 10)
+        public BooksDTO Get(int offset, int count = 10)
         {
             var books = _context.Books
                 .OrderBy(b => b.Id)
@@ -46,7 +47,16 @@ namespace Library.Services.Implementations.DbService
                 .Take(count)
                 .ToList();
 
-            return books;
+            var booksCount = _context.Books
+                .Count();
+
+            var dto = new BooksDTO
+            {
+                Books = books,
+                Count = booksCount
+            };
+
+            return dto;
         }
 
         public Book GetById(int id)

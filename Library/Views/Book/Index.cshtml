@@ -1,0 +1,95 @@
+﻿@model Library.ViewModels.BookViewModel
+
+@{
+    ViewBag.Title = "Книги";
+}
+
+<script>
+    function onRemoveBook(bookId) {
+        if (confirm("Удалить запись?")) {
+            var client = new XMLHttpRequest();
+            client.open("GET", "Book/Remove?bookId=" + bookId, false);
+            client.send();
+            if (client.status != 200) {
+                alert(client.status + ': ' + client.statusText);
+            } else {
+                var response = JSON.parse(client.responseText);
+                if (response) {
+                    document.getElementById(bookId).remove();
+                    alert("Запись удалена");
+                } else {
+                    alert("Произошла ошибка");
+                }
+            }
+        }
+    }
+</script>
+
+<div class="panel panel-default" style="margin-top:20px;">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Книги</div>
+
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Жанр</th>
+                <th scope="col">Дата публикации</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+            <tr id="@book.Id">
+                <th scope="row">@book.Id</th>
+                <td>@Html.ActionLink(@book.Name, "Update", "Book", new { bookId = @book.Id }, null)</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.ReleaseDate.DateTime.ToShortDateString()</td>
+                <td><a onclick="onRemoveBook(@book.Id)">Удалить</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.ActionLink("Добавить", "Add", "Book")
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li>
+            @{
+                var prev = Model.Index - 1;
+                prev = prev < 0 ? 0 : prev;
+            }
+            <a href="/Book/Index?index=@prev" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @{
+            var count = Model.Count / 10;
+            if (count >= 5)
+            {
+                count = 5;
+            }
+        }
+        @for (int i = 0; i <= count; i++)
+        {
+            var index = i + 1;
+            <li><a href="/Book/Index?index=@i">@index</a></li>
+        }
+        <li>
+            @{
+                var next = Model.Index + 1;
+                next = next > count ? count : next;
+            }
+            <a href="/Book/Index?index=@next" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

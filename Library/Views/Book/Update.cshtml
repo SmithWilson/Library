@@ -1,0 +1,62 @@
+﻿@model Entity.Models.Book
+
+@{
+    ViewBag.Title = "Обновление";
+}
+
+<h2>Обновление</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+            @Html.HiddenFor(model => model.Id, new { value = Model.Id} )
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { value = Model.Name })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Author, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Author, new { value = Model.Author })
+            @Html.ValidationMessageFor(model => model.Author)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Genre, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Genre, new { value = Model.Genre })
+            @Html.ValidationMessageFor(model => model.Genre)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ReleaseDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ReleaseDate, new { value = Model.ReleaseDate })
+            @Html.ValidationMessageFor(model => model.ReleaseDate)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
