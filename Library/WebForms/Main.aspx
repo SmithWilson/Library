@@ -81,7 +81,7 @@
                             <%# DataBinder.Eval(Container.DataItem, "Genre") %>
                         </td>
                         <td scope="row">
-                            <%# DataBinder.Eval(Container.DataItem, "ReleaseDate") %>
+                            <%# DataBinder.Eval(Container.DataItem, "ReleaseDate").ToString().Split(' ').First() %>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -118,7 +118,7 @@
                         <td><a href="/Book/Update?bookId=<%= book.Id %>"><%= book.Name %></a></td>
                         <td><%= book.Author %></td>
                         <td><%= book.Genre %></td>
-                        <td><%= book.ReleaseDate %></td>
+                        <td><%= book.ReleaseDate.DateTime.ToShortDateString() %></td>
                         <td><a onclick="onRemoveBook(<%= book.Id %>)">Удалить</a></td>
                     </tr>
                     <% } %>

@@ -5,7 +5,6 @@ using Library.Services.Abstractions.DbService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Library.Services.Implementations.DbService
 {
@@ -26,6 +25,11 @@ namespace Library.Services.Implementations.DbService
             _context = context;
         }
 
+        /// <summary>
+        /// Добавление новой книги в таблицу
+        /// </summary>
+        /// <param name="value">Необходимые данные для добавления</param>
+        /// <returns>Добавленная книга</returns>
         public Book Add(Book value)
         {
             if (value == null)
@@ -39,6 +43,12 @@ namespace Library.Services.Implementations.DbService
             return book;
         }
 
+        /// <summary>
+        /// Получение данных со смещением
+        /// </summary>
+        /// <param name="offset">Смещение</param>
+        /// <param name="count">Количество</param>
+        /// <returns>DTO обьект <see cref="DTO.BooksDTO"/></returns>
         public BooksDTO Get(int offset, int count = 10)
         {
             var books = _context.Books
@@ -59,12 +69,26 @@ namespace Library.Services.Implementations.DbService
             return dto;
         }
 
+        /// <summary>
+        /// Получение всех данных
+        /// </summary>
+        /// <returns></returns>
         public List<Book> GetAll()
             => _context.Books.ToList();
 
+        /// <summary>
+        /// Получение книги по Id
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
         public Book GetById(int id)
             => _context.Books.FirstOrDefault(b => b.Id == id);
 
+        /// <summary>
+        /// Удаление книги по Id
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>В случае успеха - <see langword="true"/></returns>
         public bool Remove(int id)
         {
             var book = _context.Books.FirstOrDefault(b => b.Id == id);
@@ -84,6 +108,11 @@ namespace Library.Services.Implementations.DbService
             return true;
         }
 
+        /// <summary>
+        /// Обновление свойст книги с помощью рефлексии
+        /// </summary>
+        /// <param name="value">Новый значения свойств</param>
+        /// <returns>Обновленный обьект книги</returns>
         public Book Update(Book value)
         {
             try

@@ -2,12 +2,7 @@
 using Entity.Models;
 using Library.Services.Abstractions.DbService;
 using Library.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 namespace Library.Controllers
 {
@@ -25,16 +20,11 @@ namespace Library.Controllers
         {
             var booksDTO = _bookService.Get(index);
 
-            var repeater = new Repeater();
-            repeater.DataSource = booksDTO.Books;
-            repeater.DataBind();
-
             var bookVM = new BookViewModel
             {
                 Index = index,
                 Books = booksDTO.Books,
-                Count = booksDTO.Count,
-                Repeater = repeater
+                Count = booksDTO.Count
             };
 
             return View(bookVM);
